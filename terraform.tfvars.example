@@ -1,0 +1,4 @@
+vpc_id            = "vpc-xxxxxxxx"
+security_group_id = "sg-xxxxxxxxxxxxxxxxx"
+instance_name     = "tf-lab-test-01"
+instance_type     = "t3.medium"
