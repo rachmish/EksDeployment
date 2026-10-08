@@ -10,10 +10,10 @@ output "subnet_ids" {
 
 output "instance_id" {
   description = "ID of the lab instance"
-  value       = aws_instance.lab_test.id
+  value       = module.lab_test.instance_id
 }
 
 output "private_ip" {
   description = "Private IP of the lab instance"
-  value       = aws_instance.lab_test.private_ip
+  value       = module.lab_test.private_ip
 }

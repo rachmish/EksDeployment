@@ -25,13 +25,13 @@ data "aws_security_group" "existing" {
   vpc_id = data.aws_vpc.lab.id
 }
 
-resource "aws_instance" "lab_test" {
-  ami                    = data.aws_ssm_parameter.windows_2022.value
-  instance_type          = var.instance_type
-  subnet_id              = data.aws_subnets.lab.ids[0]
-  vpc_security_group_ids = [data.aws_security_group.existing.id]
+module "lab_test" {
+  source = "./modules/windows-server"
 
-  tags = merge(local.common_tags, {
-    Name = var.instance_name
-  })
+  name               = var.instance_name
+  instance_type      = var.instance_type
+  ami_id             = data.aws_ssm_parameter.windows_2022.value
+  subnet_id          = data.aws_subnets.lab.ids[0]
+  security_group_ids = [data.aws_security_group.existing.id]
+  tags               = local.common_tags
 }
