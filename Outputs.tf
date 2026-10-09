@@ -8,12 +8,17 @@ output "subnet_ids" {
   value       = data.aws_subnets.lab.ids
 }
 
-output "instance_id" {
-  description = "ID of the lab instance"
-  value       = module.lab_test.instance_id
-}
-
-output "private_ip" {
-  description = "Private IP of the lab instance"
-  value       = module.lab_test.private_ip
+output "servers" {
+  description = "Details of each existing lab server"
+  value = {
+    for name, srv in data.aws_instance.servers : name => {
+      role              = var.servers[name].role
+      instance_id       = srv.id
+      instance_type     = srv.instance_type
+      private_ip        = srv.private_ip
+      availability_zone = srv.availability_zone
+      subnet_id         = srv.subnet_id
+      ami_id            = srv.ami
+    }
+  }
 }

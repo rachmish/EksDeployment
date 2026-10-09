@@ -1,12 +1,17 @@
-variable "name" {
-  type        = string
-  description = "Name tag for the server"
+variable "servers" {
+  description = "Existing servers to look up. Key = exact Name tag in AWS."
+  type = map(object({
+    role = string
+  }))
 }
 
-variable "instance_type" {
-  type        = string
-  description = "EC2 instance type"
-  default     = "t3.medium"
+  validation {
+    condition = alltrue([
+      for s in values(var.servers) :
+      contains(["t3.medium", "t3.large", "t3.xlarge"], s.instance_type)
+    ])
+    error_message = "Each server's instance_type must be one of: t3.medium, t3.large, t3.xlarge."
+  }
 }
 
 variable "ami_id" {
@@ -28,4 +33,10 @@ variable "tags" {
   type        = map(string)
   description = "Common tags applied to the server"
   default     = {}
+}
+
+variable "lab_running" {
+  type        = bool
+  description = "true = lab servers running, false = stopped (saves compute cost)"
+  default     = true
 }
