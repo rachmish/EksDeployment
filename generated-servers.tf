@@ -6,7 +6,6 @@
 
 resource "aws_instance" "dc" {
   ami                                  = "ami-031283482dcfced88"
-  associate_public_ip_address          = true
   availability_zone                    = "us-east-1c"
   disable_api_stop                     = false
   disable_api_termination              = false
@@ -82,7 +81,6 @@ resource "aws_instance" "dc" {
 
 resource "aws_instance" "tpp" {
   ami                                  = "ami-06f6b7ecb36846008"
-  associate_public_ip_address          = true
   availability_zone                    = "us-east-1b"
   disable_api_stop                     = false
   disable_api_termination              = false
@@ -158,7 +156,6 @@ resource "aws_instance" "tpp" {
 
 resource "aws_instance" "vsatellite" {
   ami                                  = "ami-0f2425d4cce4e97dd"
-  associate_public_ip_address          = true
   availability_zone                    = "us-east-1a"
   disable_api_stop                     = false
   disable_api_termination              = false
